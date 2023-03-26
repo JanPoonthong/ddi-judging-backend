@@ -2,12 +2,12 @@ import socket from "@/lib/socket";
 import prisma from "../../../lib/prisma";
 
 export default async function handle(req, res) {
-    const id  = req.query.id;
+    const id = req.query.id;
     const { amount } = req.body;
 
     let teams;
 
-    let socketList = socket()
+    let socketList = socket();
 
     try {
         const teamData = await prisma.team.findUnique({
@@ -42,7 +42,8 @@ export default async function handle(req, res) {
         }
 
         res.json({
-            success: true, team: post
+            success: true,
+            team: post,
         });
     } catch (error) {
         res.json({
@@ -50,4 +51,4 @@ export default async function handle(req, res) {
             error: `Team with ID ${id} does not exist in the database`,
         });
     }
-};
+}

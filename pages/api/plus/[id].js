@@ -7,7 +7,7 @@ export default async function handle(req, res) {
 
     let teams;
 
-    let socketList = socket()
+    let socketList = socket();
 
     try {
         await prisma.team.findUnique({
