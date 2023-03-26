@@ -15,7 +15,9 @@ model Team {
 
 model Judge {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
+  loginID   String @unique
+  password  String
   name      String @unique
-  amount    Int
+  // investmentTaamName String
   totalBank Int    @default(2000000)
 }
