@@ -17,24 +17,24 @@ export default async function login(req, res) {
     let judge;
 
     await prisma.judge.findUnique({
-            where: { loginID: id},
-            include: {
-                teamList: true,
-            },
-        });
-    
+        where: { loginID: id },
+        include: {
+            teamList: true,
+        },
+    });
+
     try {
         judge = await prisma.judge.update({
             where: { loginID: id },
             data: {
-                name: username
-            }
-        })
+                name: username,
+            },
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.json({ success: false, error: "No id found on database" });
     }
-    
+
     if (judge) {
         if (judge.loginID === id && judge.password === password) {
             res.json({

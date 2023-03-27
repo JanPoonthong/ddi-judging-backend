@@ -9,10 +9,8 @@ export default async function handle(req, res) {
         optionsSuccessStatus: 200,
     });
 
-    console.log("HELLO", req.body)
-
     try {
-         const judge = await prisma.judge.findMany({
+        const judge = await prisma.judge.findMany({
             include: {
                 teamList: true,
             },
@@ -35,13 +33,13 @@ export default async function handle(req, res) {
         const transformedArray = Object.keys(teamTotals).map((key) => {
             return {
                 name: key,
-                amount: teamTotals[key]
+                amount: teamTotals[key],
             };
         });
 
-        res.json({ team: transformedArray});
+        res.json({ team: transformedArray });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.json({ error: error });
     }
 }

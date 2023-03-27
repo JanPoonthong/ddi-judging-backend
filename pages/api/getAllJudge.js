@@ -17,12 +17,11 @@ export default async function handle(req, res) {
             },
         });
 
-        
-        let updatedTotalJudge = plusTotalAmount(judge)
+        let updatedTotalJudge = plusTotalAmount(judge);
 
-        res.json({ team: updatedTotalJudge});
+        res.json({ team: updatedTotalJudge });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.json({ error: error });
     }
 }

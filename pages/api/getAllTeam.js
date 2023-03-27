@@ -9,12 +9,10 @@ export default async function handle(req, res) {
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     });
 
-    console.log("HELLO", req.body)
-
     try {
         const judge = await prisma.judge.findUnique({
             where: {
-                id: req.body.id
+                id: req.body.id,
             },
             include: {
                 teamList: true,
@@ -26,9 +24,9 @@ export default async function handle(req, res) {
         //         teamsList: "desc",
         //     },
         // });
-        res.json({ team: judge});
+        res.json({ team: judge });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.json({ error: error });
     }
 }
