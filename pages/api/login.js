@@ -24,7 +24,7 @@ export default async function login(req, res) {
             },
         });
     } catch (error) {
-        res.json({ success: false, error: "Wrong credential" });
+        return res.json({ success: false, error: "Wrong credential" });
     }
 
     try {
@@ -36,7 +36,7 @@ export default async function login(req, res) {
         });
     } catch (error) {
         console.log(error);
-        res.json({ success: false, error: "No id found on database" });
+        return res.json({ success: false, error: "No id found on database" });
     }
 
     if (judge) {
@@ -47,9 +47,9 @@ export default async function login(req, res) {
                 judge: judge,
             });
         } else {
-            res.json({ success: false, error: "Wrong credential" });
+            return res.json({ success: false, error: "Wrong credential" });
         }
     } else {
-        res.json({ success: false, error: "No id found on database" });
+        return res.json({ success: false, error: "No id found on database" });
     }
 }
