@@ -8,18 +8,19 @@ export default async function handle(req, res) {
         optionsSuccessStatus: 200,
     });
 
-    const name = req.body.name;
     const id = req.query.id;
 
     try {
-        const judge = await prisma.judge.update({
+        const judge = await prisma.judge.findUnique({
             where: { id },
-            data: { name: name},
+            include: {
+                teamList: true,
+            },
         });
 
-        res.send({success: true, judge: judge})
+        res.send({ success: true, judge: judge });
     } catch (error) {
         console.error(error);
-        res.status({success: false, error: error})
+        res.status({ success: false, error: error });
     }
 }
