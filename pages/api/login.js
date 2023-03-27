@@ -16,12 +16,16 @@ export default async function login(req, res) {
 
     let judge;
 
-    await prisma.judge.findUnique({
-        where: { loginID: id },
-        include: {
-            teamList: true,
-        },
-    });
+    try {
+        await prisma.judge.findUnique({
+            where: { loginID: id },
+            include: {
+                teamList: true,
+            },
+        });
+    } catch (error) {
+        res.json({ success: false, error: "Wrong credential" });
+    }
 
     try {
         judge = await prisma.judge.update({

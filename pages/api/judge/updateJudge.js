@@ -21,7 +21,7 @@ export default async function handle(req, res) {
             where: { id },
             data: {
                 name: name,
-                totalBank: totalBank - investmentAmount,
+                totalBank: totalBank,
 
                 teamList: {
                     update: [
