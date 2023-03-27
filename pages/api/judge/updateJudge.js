@@ -16,12 +16,25 @@ export default async function handle(req, res) {
 
     const id = req.body.id;
 
+    let findJudge;
+
+    try {
+        findJudge = await prisma.judge.findUnique({
+            where: {id: id},
+            include: {
+                teamList: true,
+            },
+        })
+    } catch (error) {
+        res.send({success: false, error: "Can't find user"})
+    }
+
     try {
         const judge = await prisma.judge.update({
             where: { id },
             data: {
                 name: name,
-                totalBank: totalBank,
+                totalBank: findJudge.totalBank - investmentAmount,
 
                 teamList: {
                     update: [
