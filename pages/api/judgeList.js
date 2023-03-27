@@ -1,7 +1,8 @@
 export const judgeList = [
-    { username: "judge one", password: "foobar1" },
-    { username: "judge two", password: "foobar2" },
-    { username: "judge three", password: "foobar3" },
-    { username: "judge four", password: "foobar4" },
-    { username: "judge five", password: "foobar5" },
+    { id: "29919", password: "mr6k8x" },
+    { id: "21223", password: "17lnc7" },
+    { id: "73549", password: "jftgsq" },
+    { id: "94686", password: "kjnu9q" },
+    { id: "92043", password: "n7p50c" },
+    { id: "50853", password: "r558p6" },
 ];
