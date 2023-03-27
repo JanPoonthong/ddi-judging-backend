@@ -42,7 +42,7 @@ export default async function handle(req, res) {
                             data: {
                                 teamName: teamName,
                                 investmentAmount: investmentAmount,
-                                totalAmount: totalAmount,
+                                totalAmount: (action === "plus") ? (totalAmount + investmentAmount) : (totalAmount - investmentAmount)
                             },
                         },
                     ],
