@@ -7,17 +7,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Team {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  name   String @unique
-  amount Int    @default(0)
+model Judge {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  loginID   String? @unique
+  password  String?
+  name      String? @unique
+  totalBank Int     @default(2000000)
+  teamList  Team[]
 }
 
-model Judge {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  loginID   String @unique
-  password  String
-  name      String @unique
-  // investmentTaamName String
-  totalBank Int    @default(2000000)
+model Team {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  teamName         String? @unique
+  totalAmount      Int?    @default(0)
+  investmentAmount Int?    @default(0)
+  judge            Judge?  @relation(fields: [judgeId], references: [id])
+  judgeId          String? @db.ObjectId
 }
