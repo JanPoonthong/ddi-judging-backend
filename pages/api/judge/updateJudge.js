@@ -12,7 +12,7 @@ export default async function handle(req, res) {
     const teamName = req.body.teamList.teamName;
     const investmentAmount = req.body.teamList.investmentAmount;
     const totalAmount = req.body.teamList.totalAmount;
-    const totalBank = req.body.totalBank;
+    const action = req.body.action;
 
     const id = req.body.id;
 
@@ -34,8 +34,7 @@ export default async function handle(req, res) {
             where: { id },
             data: {
                 name: name,
-                totalBank: findJudge.totalBank - investmentAmount,
-
+                totalBank: (action === "plus")? (findJudge.totalBank - investmentAmount) : (findJudge.totalBank + investmentAmount),
                 teamList: {
                     update: [
                         {
