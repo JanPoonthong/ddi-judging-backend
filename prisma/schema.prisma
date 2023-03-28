@@ -21,6 +21,15 @@ model Team {
   teamName         String? @unique
   totalAmount      Int?    @default(0)
   investmentAmount Int?    @default(0)
+  history          String? @default("")
   judge            Judge?  @relation(fields: [judgeId], references: [id])
   judgeId          String? @db.ObjectId
+}
+
+model History {
+  id                  String  @id @default(auto()) @map("_id") @db.ObjectId
+  teamName            String? @unique
+  totalAmount         Int?    @default(0)
+  history             String? @default("")
+  numberOfTransaction Int?    @default(0)
 }
