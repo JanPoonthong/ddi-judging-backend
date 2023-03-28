@@ -9,10 +9,15 @@ export default async function handle(req, res) {
     });
 
     try {
-        const history = await prisma.history.findMany({ });
-        res.status(200).json({success: true, message: history})
+        const history = await prisma.history.findMany({
+            select: {
+                teamName: true,
+                log: true,
+            },
+        });
+        res.status(200).json({ success: true, message: history });
     } catch (error) {
-        console.error(error)
-        res.status(400).json({ success: false, error: error.message})
+        console.error(error);
+        res.status(400).json({ success: false, error: error.message });
     }
 }
