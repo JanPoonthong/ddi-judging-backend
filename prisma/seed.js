@@ -195,90 +195,103 @@ const teamList = [
 ];
 
 async function main() {
-    console.log("Start seeding ...");
-    const team = await prisma.judge.create({
-        data: {
-            loginID: generateID(),
-            password: generatePassword(),
-            name: "",
-            teamList: {
-                create: [
-                    {
-                        teamName: "Jelly Bob",
-                    },
-                    {
-                        teamName: "Fizzle",
-                    },
-                    {
-                        teamName: "Blizz",
-                    },
-                    {
-                        teamName: "Kripz",
-                    },
-                    {
-                        teamName: "Zeri",
-                    },
-                    {
-                        teamName: "Profries",
-                    },
-                    {
-                        teamName: "Haly Bake",
-                    },
-                    {
-                        teamName: "Fragante",
-                    },
-                    {
-                        teamName: "K'otton",
-                    },
-                    {
-                        teamName: "Day One",
-                    },
-                    {
-                        teamName: "Locomto",
-                    },
-                    {
-                        teamName: "Let's Plant",
-                    },
-                    {
-                        teamName: "GottaGO",
-                    },
-                    {
-                        teamName: "Harn",
-                    },
-                    {
-                        teamName: "Athena",
-                    },
-                    {
-                        teamName: "Tagme",
-                    },
-                    {
-                        teamName: "R-ROI",
-                    },
-                    {
-                        teamName: "Indicat",
-                    },
-                    {
-                        teamName: "Yeobo",
-                    },
-                    {
-                        teamName: "Frescas",
-                    },
-                    {
-                        teamName: "Giadina",
-                    },
-                    {
-                        teamName: "CoGrow",
-                    },
-                    {
-                        teamName: "Wastic",
-                    },
-                ],
-            },
-        },
-    });
 
-    console.log(`Created user with id: ${team.id}`);
+    console.log("Start seeding ...");
+    for (let i = 0; i < teamList.length; i++) {
+        const team = await prisma.history.create({
+            data: {
+                teamName: teamList[i]
+        }
+        })
+    }
+
 }
+
+// async function main() {
+//     console.log("Start seeding ...");
+//     const team = await prisma.judge.create({
+//         data: {
+//             loginID: generateID(),
+//             password: generatePassword(),
+//             name: "",
+//             teamList: {
+//                 create: [
+//                     {
+//                         teamName: "Jelly Bob",
+//                     },
+//                     {
+//                         teamName: "Fizzle",
+//                     },
+//                     {
+//                         teamName: "Blizz",
+//                     },
+//                     {
+//                         teamName: "Kripz",
+//                     },
+//                     {
+//                         teamName: "Zeri",
+//                     },
+//                     {
+//                         teamName: "Profries",
+//                     },
+//                     {
+//                         teamName: "Haly Bake",
+//                     },
+//                     {
+//                         teamName: "Fragante",
+//                     },
+//                     {
+//                         teamName: "K'otton",
+//                     },
+//                     {
+//                         teamName: "Day One",
+//                     },
+//                     {
+//                         teamName: "Locomto",
+//                     },
+//                     {
+//                         teamName: "Let's Plant",
+//                     },
+//                     {
+//                         teamName: "GottaGO",
+//                     },
+//                     {
+//                         teamName: "Harn",
+//                     },
+//                     {
+//                         teamName: "Athena",
+//                     },
+//                     {
+//                         teamName: "Tagme",
+//                     },
+//                     {
+//                         teamName: "R-ROI",
+//                     },
+//                     {
+//                         teamName: "Indicat",
+//                     },
+//                     {
+//                         teamName: "Yeobo",
+//                     },
+//                     {
+//                         teamName: "Frescas",
+//                     },
+//                     {
+//                         teamName: "Giadina",
+//                     },
+//                     {
+//                         teamName: "CoGrow",
+//                     },
+//                     {
+//                         teamName: "Wastic",
+//                     },
+//                 ],
+//             },
+//         },
+//     });
+
+//     console.log(`Created user with id: ${team.id}`);
+// }
 console.log("Seeding finished");
 
 // async function main() {
