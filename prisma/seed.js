@@ -195,16 +195,14 @@ const teamList = [
 ];
 
 async function main() {
-
     console.log("Start seeding ...");
     for (let i = 0; i < teamList.length; i++) {
         const team = await prisma.history.create({
             data: {
-                teamName: teamList[i]
-        }
-        })
+                teamName: teamList[i],
+            },
+        });
     }
-
 }
 
 // async function main() {
