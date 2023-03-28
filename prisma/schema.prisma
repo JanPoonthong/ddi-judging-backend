@@ -30,6 +30,6 @@ model History {
   id                  String  @id @default(auto()) @map("_id") @db.ObjectId
   teamName            String? @unique
   totalAmount         Int?    @default(0)
-  history             String? @default("")
+  log                 String? @default("")
   numberOfTransaction Int?    @default(0)
 }

@@ -54,13 +54,12 @@ export default async function handle(req, res) {
             where: {teamName},
             data: {
                 totalAmount: updatedTotalAmount, 
-                history: oldHistory.history + "," + findJudge.loginID + " " + action + " " + "500000",
+                log: oldHistory.history + "," + findJudge.loginID + " " + action + " " + "500000",
                 numberOfTransaction: oldHistory.numberOfTransaction + 1
             }
         })
 
-        // fs.appendFileSync("logs.txt", `${oldHistory.history},${findJudge.loginID} ${action} "500000"`
-        // })
+        // fs.appendFileSync("logs.txt", `${oldHistory.numberOfTransaction + 1} ${oldHistory.history},${findJudge.loginID} ${action} 500000 \n`)
 
         const judge = await prisma.judge.update({
             where: { id },
