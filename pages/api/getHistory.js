@@ -9,11 +9,10 @@ export default async function handle(req, res) {
     });
 
     try {
-        const history = await prisma.history.findMany({
-        });
-        return res.send({success: true, message: history})
+        const history = await prisma.history.findMany({ });
+        res.status(200).json({success: true, message: history})
     } catch (error) {
-        return res.send({ success: false, error: error})
+        console.error(error)
+        res.status(400).json({ success: false, error: error})
     }
-
 }
