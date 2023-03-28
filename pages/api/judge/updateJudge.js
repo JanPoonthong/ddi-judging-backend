@@ -36,7 +36,12 @@ export default async function handle(req, res) {
         throw new Error(`Team ${teamName} not found in judge's teamList`);
     }
 
-    const updatedTotalAmount = teamToUpdate.totalAmount + investmentAmount;
+    let updatedTotalAmount;
+    if (action === "plus") {
+        updatedTotalAmount = teamToUpdate.totalAmount + investmentAmount;
+    } else {
+        updatedTotalAmount = teamToUpdate.totalAmount - investmentAmount;
+    }
 
     try {
         const judge = await prisma.judge.update({
