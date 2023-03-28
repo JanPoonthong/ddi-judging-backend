@@ -11,7 +11,6 @@ export default async function handle(req, res) {
     const name = req.body.name;
     const teamName = req.body.teamList.teamName;
     const investmentAmount = req.body.teamList.investmentAmount;
-    const totalAmount = req.body.teamList.totalAmount;
     const action = req.body.action;
 
     const id = req.body.id;
@@ -20,21 +19,34 @@ export default async function handle(req, res) {
 
     try {
         findJudge = await prisma.judge.findUnique({
-            where: {id: id},
+            where: { id: id },
             include: {
                 teamList: true,
             },
-        })
+        });
     } catch (error) {
-        res.send({success: false, error: "Can't find user"})
+        res.send({ success: false, error: "Can't find user" });
     }
+
+    const teamToUpdate = findJudge.teamList.find(
+        (team) => team.teamName === teamName
+    );
+
+    if (!teamToUpdate) {
+        throw new Error(`Team ${teamName} not found in judge's teamList`);
+    }
+
+    const updatedTotalAmount = teamToUpdate.totalAmount + investmentAmount;
 
     try {
         const judge = await prisma.judge.update({
             where: { id },
             data: {
                 name: name,
-                totalBank: (action === "plus")? (findJudge.totalBank - investmentAmount) : (findJudge.totalBank + investmentAmount),
+                totalBank:
+                    action === "plus"
+                        ? findJudge.totalBank - investmentAmount
+                        : findJudge.totalBank + investmentAmount,
                 teamList: {
                     update: [
                         {
@@ -42,7 +54,7 @@ export default async function handle(req, res) {
                             data: {
                                 teamName: teamName,
                                 investmentAmount: investmentAmount,
-                                totalAmount: (action === "plus") ? (totalAmount + investmentAmount) : (totalAmount - investmentAmount)
+                                totalAmount: updatedTotalAmount,
                             },
                         },
                     ],
