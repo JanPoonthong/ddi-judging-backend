@@ -1,6 +1,8 @@
 import NextCors from "nextjs-cors";
 import prisma from "../../../lib/prisma";
 
+// import fs from "fs";
+
 export default async function handle(req, res) {
     await NextCors(req, res, {
         methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
@@ -42,8 +44,24 @@ export default async function handle(req, res) {
     } else {
         updatedTotalAmount = teamToUpdate.totalAmount - investmentAmount;
     }
+    
+    const oldHistory = await prisma.history.findUnique({
+        where: {teamName}
+    })
 
     try {
+        await prisma.history.update({
+            where: {teamName},
+            data: {
+                totalAmount: updatedTotalAmount, 
+                history: oldHistory.history + "," + findJudge.loginID + " " + action + " " + "500000",
+                numberOfTransaction: oldHistory.numberOfTransaction + 1
+            }
+        })
+
+        // fs.appendFileSync("logs.txt", `${oldHistory.history},${findJudge.loginID} ${action} "500000"`
+        // })
+
         const judge = await prisma.judge.update({
             where: { id },
             data: {
@@ -60,6 +78,7 @@ export default async function handle(req, res) {
                                 teamName: teamName,
                                 investmentAmount: investmentAmount,
                                 totalAmount: updatedTotalAmount,
+                                history: teamToUpdate.history + "," + findJudge.loginID + " " + action + " " + "500000"
                             },
                         },
                     ],
