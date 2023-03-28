@@ -21,11 +21,11 @@ export default async function handle(req, res) {
         for (const teamDict of judge) {
             for (const team of teamDict.teamList) {
                 const teamName = team.teamName;
-                const investmentAmount = team.investmentAmount;
+                const totalAmount = team.totalAmount;
                 if (!(teamName in teamTotals)) {
-                    teamTotals[teamName] = investmentAmount;
+                    teamTotals[teamName] = totalAmount;
                 } else {
-                    teamTotals[teamName] += investmentAmount;
+                    teamTotals[teamName] += totalAmount;
                 }
             }
         }
@@ -37,7 +37,7 @@ export default async function handle(req, res) {
             };
         });
 
-        res.json({ team: transformedArray });
+        res.json({ team: transformedArray});
     } catch (error) {
         console.log(error);
         res.json({ error: error });
