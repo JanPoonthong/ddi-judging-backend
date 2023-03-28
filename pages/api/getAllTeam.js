@@ -19,11 +19,6 @@ export default async function handle(req, res) {
             },
         });
 
-        // let teams = await prisma.judge.findMany({
-        //     orderBy: {
-        //         teamsList: "desc",
-        //     },
-        // });
         res.status(200).json({ team: judge });
     } catch (error) {
         console.log(error);

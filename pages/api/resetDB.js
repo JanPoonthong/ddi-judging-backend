@@ -42,6 +42,9 @@ export default async function handle(req, res) {
             await prisma.history.create({
                 data: {
                     teamName: teamList[i],
+                    log: "",
+                    totalAmount: 0,
+                    numberOfTransaction: 0,
                 },
             });
             isErrorHistory = false;

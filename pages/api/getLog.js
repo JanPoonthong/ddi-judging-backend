@@ -9,16 +9,19 @@ export default async function handle(req, res) {
     });
 
     try {
-        const history = await prisma.history.findMany({
-            select: {
-                id: true,
-                totalAmount: true,
-                teamName: true,
-                log: true,
-                numberOfTransaction: true
-            },
-        });
-        res.status(200).json({ success: true, message: history });
+        // const histories = await prisma.$queryRaw`SELECT * FROM History`;
+        // const histories = await prisma.history.find({});
+        const histories = await prisma.history.findMany({});
+        // const histories = await prisma.history.findMany({
+        //     select: {
+        //         id: true,
+        //         totalAmount: true,
+        //         teamName: true,
+        //         log: true,
+        //         numberOfTransaction: true
+        //     },
+        // });
+        res.status(200).json({ success: true, message: histories });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
     }
