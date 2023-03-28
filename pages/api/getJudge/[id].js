@@ -18,9 +18,9 @@ export default async function handle(req, res) {
             },
         });
 
-        res.send({ success: true, judge: judge });
+        res.status(200).send({ success: true, judge: judge });
     } catch (error) {
         console.error(error);
-        res.status({ success: false, error: error });
+        res.status(400).status({ success: false, error: error });
     }
 }

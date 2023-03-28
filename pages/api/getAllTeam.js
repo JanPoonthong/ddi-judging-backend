@@ -24,9 +24,9 @@ export default async function handle(req, res) {
         //         teamsList: "desc",
         //     },
         // });
-        res.json({ team: judge });
+        res.status(200).json({ team: judge });
     } catch (error) {
         console.log(error);
-        res.json({ error: error });
+        res.status(400).json({ error: error });
     }
 }

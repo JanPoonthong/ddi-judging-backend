@@ -44,20 +44,27 @@ export default async function handle(req, res) {
     } else {
         updatedTotalAmount = teamToUpdate.totalAmount - investmentAmount;
     }
-    
+
     const oldHistory = await prisma.history.findUnique({
-        where: {teamName}
-    })
+        where: { teamName },
+    });
 
     try {
         await prisma.history.update({
-            where: {teamName},
+            where: { teamName },
             data: {
-                totalAmount: updatedTotalAmount, 
-                log: oldHistory.history + "," + findJudge.loginID + " " + action + " " + "500000",
-                numberOfTransaction: oldHistory.numberOfTransaction + 1
-            }
-        })
+                totalAmount: updatedTotalAmount,
+                log:
+                    oldHistory.history +
+                    "," +
+                    findJudge.loginID +
+                    " " +
+                    action +
+                    " " +
+                    "500000",
+                numberOfTransaction: oldHistory.numberOfTransaction + 1,
+            },
+        });
 
         // fs.appendFileSync("logs.txt", `${oldHistory.numberOfTransaction + 1} ${oldHistory.history},${findJudge.loginID} ${action} 500000 \n`)
 
@@ -77,7 +84,14 @@ export default async function handle(req, res) {
                                 teamName: teamName,
                                 investmentAmount: investmentAmount,
                                 totalAmount: updatedTotalAmount,
-                                history: teamToUpdate.history + "," + findJudge.loginID + " " + action + " " + "500000"
+                                history:
+                                    teamToUpdate.history +
+                                    "," +
+                                    findJudge.loginID +
+                                    " " +
+                                    action +
+                                    " " +
+                                    "500000",
                             },
                         },
                     ],
@@ -88,9 +102,9 @@ export default async function handle(req, res) {
             },
         });
 
-        res.send({ success: true, judge: judge });
+        res.status(200).send({ success: true, judge: judge });
     } catch (error) {
         console.log(error);
-        res.send({ success: false, error: error });
+        res.status(400).send({ success: false, error: error });
     }
 }

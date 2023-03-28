@@ -37,9 +37,9 @@ export default async function handle(req, res) {
             };
         });
 
-        res.json({ team: transformedArray});
+        res.status(200).json({ team: transformedArray });
     } catch (error) {
         console.log(error);
-        res.json({ error: error });
+        res.status(400).json({ error: error });
     }
 }

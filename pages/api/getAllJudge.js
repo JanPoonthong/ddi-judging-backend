@@ -19,9 +19,9 @@ export default async function handle(req, res) {
 
         let updatedTotalJudge = plusTotalAmount(judge);
 
-        res.json({ team: updatedTotalJudge });
+        res.status(200).json({ team: updatedTotalJudge });
     } catch (error) {
         console.log(error);
-        res.json({ error: error });
+        res.status(400).json({ error: error });
     }
 }

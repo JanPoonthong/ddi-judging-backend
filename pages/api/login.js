@@ -24,7 +24,9 @@ export default async function login(req, res) {
             },
         });
     } catch (error) {
-        return res.json({ success: false, error: "Wrong credential" });
+        return res
+            .status(400)
+            .json({ success: false, error: "Wrong credential" });
     }
 
     try {
@@ -36,20 +38,22 @@ export default async function login(req, res) {
         });
     } catch (error) {
         console.log(error);
-        return res.json({ success: false, error: "No id found on database" });
+        return res
+            .status(400)
+            .json({ success: false, error: "No id found on database" });
     }
 
     if (judge) {
         if (judge.loginID === id && judge.password === password) {
-            res.json({
+            res.status(200).json({
                 success: true,
                 message: "Authenticate Success",
                 judge: judge,
             });
         } else {
-            return res.json({ success: false, error: "Wrong credential" });
+            return res.status(400).json({ success: false, error: "Wrong credential" });
         }
     } else {
-        return res.json({ success: false, error: "No id found on database" });
+        return res.status(400).json({ success: false, error: "No id found on database" });
     }
 }

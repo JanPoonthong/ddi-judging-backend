@@ -11,14 +11,14 @@ export default async function handle(req, res) {
     const judgeNumber = req.body.judgeNumber;
 
     if (username !== "admin" && password !== "ADMINJAN123") {
-        return res.send({
+        return res.status(400).json({
             success: false,
             error: "Wrong admin username and password",
         });
     }
 
     if (judgeNumber === undefined || judgeNumber === null) {
-        return res.send({
+        return res.status(400).json({
             success: false,
             error: "Need number of judge to create",
         });
@@ -28,7 +28,10 @@ export default async function handle(req, res) {
         await prisma.judge.deleteMany();
         await prisma.history.deleteMany();
     } catch (error) {
-        res.send({ success: false, error: "Can't delete judge and history in DB" });
+        res.status(400).json({
+            success: false,
+            error: "Can't delete judge and history in DB",
+        });
     }
 
     let isErrorJudge;
@@ -39,16 +42,18 @@ export default async function handle(req, res) {
             await prisma.history.create({
                 data: {
                     teamName: teamList[i],
-                }
-            })
-            isErrorHistory = false
+                },
+            });
+            isErrorHistory = false;
         } catch (error) {
-            isErrorHistory = true
+            isErrorHistory = true;
         }
     }
 
     if (isErrorHistory) {
-        return res.send({ success: false, error: "Reset history error" });
+        return res
+            .status(400)
+            .json({ success: false, error: "Reset history error" });
     }
 
     for (let i = 1; i < judgeNumber + 1; i++) {
@@ -142,8 +147,10 @@ export default async function handle(req, res) {
         }
     }
     if (isErrorJudge) {
-        return res.send({ success: false, error: "Reset user error" });
-    } 
+        return res
+            .status(400)
+            .json({ success: false, error: "Reset user error" });
+    }
 
-    return res.send({ success: true, error: "Reset successfully" });
+    return res.status(200).json({ success: true, error: "Reset successfully" });
 }
